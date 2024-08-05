@@ -96,5 +96,7 @@ namespace MvcBuggetoEx.Controllers
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "home");
         }
+     
+        
     }
 }
