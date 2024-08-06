@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcBuggetoEx.Areas.Admin.Models;
 using MvcBuggetoEx.Models;
 using MvcBuggetoEx.Models.DTO;
@@ -10,10 +11,12 @@ namespace MvcBuggetoEx.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public UserController(UserManager<User> userManager)
+        public UserController(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -144,7 +147,46 @@ namespace MvcBuggetoEx.Areas.Admin.Controllers
 
         }
 
-      
+        public IActionResult AddUserRole(string id)
+        {
+            var user = _userManager.FindByIdAsync(id).Result;
+
+            var roles = new List<SelectListItem>(
+                _roleManager.Roles.Select(p => new SelectListItem
+                {
+                    Text = p.Name,
+                    Value = p.Name,
+                }
+                ).ToList());
+
+            return View(new AddUserRoleDto
+            {
+                Id = id,
+                Roles = roles,
+                Email = user.Email,
+                FullName = $"{user.FirstName}  {user.LastName}"
+            });
+
+
+        }
+        [HttpPost]
+        public IActionResult AddUserRole(AddUserRoleDto newRole)
+        {
+
+            var user = _userManager.FindByIdAsync(newRole.Id).Result;
+            var result = _userManager.AddToRoleAsync(user, newRole.Role).Result;
+            return RedirectToAction("UserRoles", "User", new { Id = user.Id, area = "admin" });
+
+        }
+        public IActionResult UserRoles(string Id)
+        {
+            var user = _userManager.FindByIdAsync(Id).Result;
+            var roles = _userManager.GetRolesAsync(user).Result;
+            ViewBag.UserInfo = $"Name : {user.FirstName} {user.LastName} Email:{user.Email}";
+            return View(roles);
+
+        }
+
 
     }
 }

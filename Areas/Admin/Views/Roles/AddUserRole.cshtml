@@ -1,17 +1,16 @@
 ﻿@model IEnumerable<MvcBuggetoEx.Areas.Admin.Models.UserListDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "UserInRole";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>User In Role</h1>
+
 <table class="table">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -24,19 +23,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailConfirmed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccessFailedCount)
-            </th>
-            <th></th>
+
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
@@ -49,19 +44,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmailConfirmed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AccessFailedCount)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "User", new { id = item.Id, area = "Admin" }) 
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
-                    @Html.ActionLink("Delete", "Delete", "User", new { id = item.Id, area = "Admin" })
-                    @Html.ActionLink("Add Role", "AddUserRole", "User", new { id = item.Id, area = "Admin" })
-                    @Html.ActionLink("User Roles", "UserRoles", "User", new { id = item.Id, area = "Admin" })
-                </td>
+
+
             </tr>
         }
     </tbody>
