@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcBuggetoEx.Models;
 using System.Diagnostics;
@@ -16,34 +16,34 @@ namespace MvcBuggetoEx.Controllers
 
         public IActionResult Index()
         {
-            var TehranGroup = new SelectListGroup { Name = "??? ??? ??????" };
-            var otherGroup = new SelectListGroup { Name = "??? ??? ???????" };
+            var TehranGroup = new SelectListGroup { Name = "گروه تهرانی" };
+            var otherGroup = new SelectListGroup { Name = "گروه شهرستانی" };
 
             TeamViewModel model = new TeamViewModel()
             {
                 Teams = new List<SelectListItem>()
                  {
-                      new SelectListItem { Value ="1" , Text = "????????"},
-                      new SelectListItem { Value ="2" , Text = "??????"},
-                      new SelectListItem { Value ="3" , Text = "???????????"},
-                      new SelectListItem { Value ="4" , Text = "?????"},
-                      new SelectListItem { Value ="5" , Text = "???????"},
+                      new SelectListItem { Value ="1" , Text = "استقلال"},
+                      new SelectListItem { Value ="2" , Text = "پرسپولیس"},
+                      new SelectListItem { Value ="3" , Text = "ذوب اهن"},
+                      new SelectListItem { Value ="4" , Text = "سپاهان"},
+                      new SelectListItem { Value ="5" , Text = "سایپا"},
                  },
                 TeamOptionGroup = new List<SelectListItem>()
                 {
-                     new SelectListItem  {  Group=TehranGroup, Value ="1" , Text = "????????"},
-                      new SelectListItem {Group=otherGroup, Value ="2" , Text = "??????"},
-                      new SelectListItem {Group=otherGroup, Value ="3" , Text = "???????????"},
-                      new SelectListItem { Group=TehranGroup,Value ="4" , Text = "?????"},
-                      new SelectListItem { Group=TehranGroup,Value ="5" , Text = "???????"},
+                     new SelectListItem  {  Group=TehranGroup, Value ="1" , Text = "استقلال"},
+                      new SelectListItem {Group=otherGroup, Value ="2" , Text = "سپاهان"},
+                      new SelectListItem {Group=otherGroup, Value ="3" , Text = "ذوب اهن"},
+                      new SelectListItem { Group=TehranGroup,Value ="4" , Text = "پرسپولیس"},
+                      new SelectListItem { Group=TehranGroup,Value ="5" , Text = "ذوب اهن"}  ,
                 },
                 TeamMltipleItem = new List<SelectListItem>()
                 {
-                      new SelectListItem { Value ="1" , Text = "????????"},
-                      new SelectListItem { Value ="2" , Text = "??????"},
-                      new SelectListItem { Value ="3" , Text = "???????????"},
-                      new SelectListItem { Value ="4" , Text = "?????"},
-                      new SelectListItem { Value ="5" , Text = "???????"},
+                    new SelectListItem  {   Value ="1" , Text = "استقلال"},
+                      new SelectListItem { Value ="2" , Text = "سپاهان"},
+                      new SelectListItem { Value ="3" , Text = "ذوب اهن"},
+                      new SelectListItem {   Value ="4" , Text = "پرسپولیس"},
+                      new SelectListItem {   Value ="5" , Text = "ذوب اهن"},
                 }
             };
             //model.Team = "4";
