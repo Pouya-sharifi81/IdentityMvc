@@ -1,7 +1,9 @@
 using Identity.Bugeto.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MvcBuggetoEx.DAL;
+using MvcBuggetoEx.Helper;
 using MvcBuggetoEx.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,19 +24,30 @@ builder.Services.AddIdentity<User, Role>()
     .AddPasswordValidator<MyPasswordValidator>()
     .AddRoles<Role>();
 
-    builder.Services.AddAuthorization(options =>
-      {
-         options.AddPolicy("Buyer", policy =>
-      {
-            policy.RequireClaim("Buyer");
-         });
-        options.AddPolicy("BloodType", policy =>
-          {
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Buyer", policy =>
+    {
+        policy.RequireClaim("Buyer");
+    });
+    options.AddPolicy("BloodType", policy =>
+    {
         policy.RequireClaim("Blood", "Ap", "Op");
-           }
+    }
     );
+
+    options.AddPolicy("Cradit", policy =>
+    {
+        policy.Requirements.Add(new UserCreditRequerment(10000));
+    });
+
+    options.AddPolicy("IsBlogForUser", policy =>
+    {
+        policy.AddRequirements(new BlogRequirement());
+    });
 });
 
+builder.Services.AddSingleton<IAuthorizationHandler, IsBlogForUserAuthorizationHandler>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
