@@ -19,9 +19,21 @@ builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<DataBaseContex>()
     .AddDefaultTokenProviders()
     .AddErrorDescriber<CustomIdentityError>()
-    .AddPasswordValidator<MyPasswordValidator>();
+    .AddPasswordValidator<MyPasswordValidator>()
+    .AddRoles<Role>();
 
-
+    builder.Services.AddAuthorization(options =>
+      {
+         options.AddPolicy("Buyer", policy =>
+      {
+            policy.RequireClaim("Buyer");
+         });
+        options.AddPolicy("BloodType", policy =>
+          {
+        policy.RequireClaim("Blood", "Ap", "Op");
+           }
+    );
+});
 
 var app = builder.Build();
 
