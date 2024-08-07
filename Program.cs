@@ -1,3 +1,4 @@
+using Identity.Bugeto.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MvcBuggetoEx.DAL;
@@ -16,7 +17,9 @@ builder.Services.AddDbContext<DataBaseContex>(p =>
 //Add dbContex Identity
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<DataBaseContex>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddErrorDescriber<CustomIdentityError>()
+    .AddPasswordValidator<MyPasswordValidator>();
 
 
 
